@@ -6,4 +6,4 @@ pluginManagement {
     }
 }
 
-include("order-service", "payment-service", "common-dtos")
+include("order-service", "common-dtos")

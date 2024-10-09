@@ -5,8 +5,8 @@ import event.PaymentStatus
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "order_process")
-data class OrderProcess(
+@Table(name = "orders")
+data class Order(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long,

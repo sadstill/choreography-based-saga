@@ -1,9 +1,10 @@
 package org.example.orderservice.service
 
-import dto.OrderRequestDto
-import dto.OrderResponseDto
-import org.springframework.http.ResponseEntity
+import dto.CreateOrderRequest
+import dto.CreateOrderResponse
+import dto.OrderResponse
 
 interface OrderService {
-    fun createOrder(orderRequestDto: OrderRequestDto): ResponseEntity<OrderResponseDto>
+    fun createOrder(createOrderRequest: CreateOrderRequest): CreateOrderResponse
+    fun getAllOrders(): List<OrderResponse>
 }

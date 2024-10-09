@@ -1,6 +1,6 @@
 package dto
 
-data class PaymentRequestDto(
+data class CreatePaymentRequest(
     val orderId: Int,
     val userId: Int,
     val amount: Int

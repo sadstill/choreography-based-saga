@@ -21,6 +21,6 @@ class OrderController(private val orderService: OrderService) {
 
     @PostMapping
     fun createOrder(@RequestBody createOrderRequest: CreateOrderRequest): ResponseEntity<CreateOrderResponse> {
-
+        return ResponseEntity.ok(null)
     }
 }

@@ -1,4 +1,11 @@
-version = "0.0.1-SNAPSHOT"
+import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
+
+plugins {
+	kotlin("jvm")
+	kotlin("plugin.spring")
+	kotlin("plugin.jpa")
+	id("org.springframework.boot")
+}
 
 dependencies {
 	implementation(project(":common-dtos"))
@@ -8,12 +15,13 @@ dependencies {
 	implementation("org.springframework.cloud:spring-cloud-stream-binder-kafka")
 	implementation("org.springframework.kafka:spring-kafka")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	implementation("org.liquibase:liquibase-core:4.29.1")
-	implementation("org.postgresql:postgresql:42.7.4")
+	implementation("org.liquibase:liquibase-core")
+	implementation("org.postgresql:postgresql")
 	implementation("org.mapstruct:mapstruct:1.5.5.Final")
-	implementation("ch.qos.logback:logback-classic:1.5.8")
+	implementation("ch.qos.logback:logback-classic")
+	implementation("io.github.microutils:kotlin-logging:3.0.5")
 
-	compileOnly("org.projectlombok:lombok:1.18.34")
+	runtimeOnly("org.springdoc:springdoc-openapi-kotlin:1.8.0")
 
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testImplementation("org.springframework.cloud:spring-cloud-stream-test-binder")
@@ -21,4 +29,13 @@ dependencies {
 	testImplementation("io.projectreactor:reactor-test")
 	testImplementation("org.springframework.kafka:spring-kafka-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+tasks.register<GenerateTask>("generateOrderApi") {
+	generatorName.set("spring")
+	// todo check it
+	outputDir.set(rootProject.layout.buildDirectory.dir("generated").get().asFile.toString())
+	apiPackage.set("org.example.orderservice.api")
+	modelPackage.set("org.example.orderservice.model")
+	inputSpec.set("")
 }

@@ -11,8 +11,8 @@ import reactor.core.publisher.Sinks
 class OrderEventPublisher(
     private val orderSinks: Sinks.Many<Event>
 ) {
-    fun publishOrderEvent(createOrderRequest: CreateOrderRequest, orderStatus: OrderStatus) {
-        val orderEvent: Event = OrderEvent(createOrderRequest, orderStatus)
-        orderSinks.tryEmitNext(orderEvent)
-    }
+//    fun publishOrderEvent(createOrderRequest: CreateOrderRequest, orderStatus: OrderStatus) {
+//        val orderEvent: Event = OrderEvent(createOrderRequest, orderStatus)
+//        orderSinks.tryEmitNext(orderEvent)
+//    }
 }

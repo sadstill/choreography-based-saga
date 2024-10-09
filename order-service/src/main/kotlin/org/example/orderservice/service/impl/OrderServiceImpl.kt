@@ -23,7 +23,7 @@ class OrderServiceImpl(
         val savedOrder = orderRepository.save(order)
 
         createOrderRequest.orderId = savedOrder.id
-        orderEventPublisher.publishOrderEvent(createOrderRequest, OrderStatus.ORDER_CREATED)
+//        orderEventPublisher.publishOrderEvent(createOrderRequest, OrderStatus.ORDER_CREATED)
 
         return CreateOrderResponse(savedOrder.userId,
             savedOrder.productId,

@@ -104,26 +104,6 @@ components:
           description: 'Дата и время события'
       additionalProperties: false
 
-    ErrorCode:
-      type: object
-      properties:
-        status:
-          type: string
-          description: HTTP статус ошибки
-          enum:
-            - BAD_REQUEST
-            - NOT_FOUND
-            - INTERNAL_SERVER_ERROR
-        errorText:
-          type: string
-          description: Описание ошибки
-          enum:
-            - "Отсутствуют обязательные параметры в запросе"
-            - "Отсутствует роль у пользователя"
-            - "Пользователь не найден"
-            - "Недоступна база данных"
-            - "Внутреняя ошибка сервиса"
-
     OrderStatus:
       type: string
       description: Статус заказа

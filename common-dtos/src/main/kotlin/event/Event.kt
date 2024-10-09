@@ -2,7 +2,7 @@ package event
 
 import java.util.*
 
-interface Event {
-    val eventId: UUID
-    val date: Date
+abstract class Event {
+    abstract val eventId: UUID
+    abstract val date: Date
 }

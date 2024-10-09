@@ -10,6 +10,7 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.liquibase:liquibase-core:4.29.1")
 	implementation("org.postgresql:postgresql:42.7.4")
+	implementation("org.mapstruct:mapstruct:1.5.5.Final")
 
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testImplementation("org.springframework.cloud:spring-cloud-stream-test-binder")

@@ -1,7 +1,7 @@
 package org.example.orderservice.entity
 
-import event.OrderStatusEnum
-import event.PaymentStatusEnum
+import event.OrderStatus
+import event.PaymentStatus
 import jakarta.persistence.*
 
 @Entity
@@ -9,7 +9,7 @@ import jakarta.persistence.*
 data class OrderProcess(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null,
+    var id: Long,
 
     @Column(name = "user_id")
     var userId: Int,
@@ -22,9 +22,9 @@ data class OrderProcess(
 
     @Column(name = "order_status")
     @Enumerated(EnumType.STRING)
-    val orderStatus: OrderStatusEnum,
+    val orderStatus: OrderStatus,
 
     @Column(name = "payment_status")
     @Enumerated(EnumType.STRING)
-    val paymentStatus: PaymentStatusEnum
+    val paymentStatus: PaymentStatus
 )

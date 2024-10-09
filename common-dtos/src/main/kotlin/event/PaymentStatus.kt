@@ -1,6 +1,6 @@
 package event
 
-enum class PaymentStatusEnum {
+enum class PaymentStatus {
     PAYMENT_COMPLETED,
     PAYMENT_FAILED
 }

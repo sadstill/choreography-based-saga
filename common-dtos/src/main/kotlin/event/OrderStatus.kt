@@ -1,6 +1,6 @@
 package event
 
-enum class OrderStatusEnum {
+enum class OrderStatus {
     ORDER_CREATED,
     ORDER_COMPLETED,
     ORDER_CANCELLED

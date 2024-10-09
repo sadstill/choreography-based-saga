@@ -11,6 +11,9 @@ dependencies {
 	implementation("org.liquibase:liquibase-core:4.29.1")
 	implementation("org.postgresql:postgresql:42.7.4")
 	implementation("org.mapstruct:mapstruct:1.5.5.Final")
+	implementation("ch.qos.logback:logback-classic:1.5.8")
+
+	compileOnly("org.projectlombok:lombok:1.18.34")
 
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testImplementation("org.springframework.cloud:spring-cloud-stream-test-binder")

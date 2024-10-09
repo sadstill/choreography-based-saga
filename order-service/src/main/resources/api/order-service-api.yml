@@ -1,0 +1,203 @@
+openapi: 3.0.1
+info:
+  title: API Order Service
+  description: Сервис для управления заказами
+  version: 1.0.0
+tags:
+  - name: orders
+paths:
+  /api/v1/order:
+    get:
+      tags:
+        - orders
+      summary: 'Получение всех активных заказов'
+      description: Получение всех активных заказов
+      operationId: getOrders
+      responses:
+        200:
+          description: Ответ при успешной обработке запроса
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderResponse'
+        400:
+          description: Неверный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Заказы не найдены
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                message: "Orders not found"
+        500:
+          description: Внутреняя ошибка сервиса
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - OrderController
+      summary: 'Создание заказа'
+      description: Создание заказа
+      operationId: createOrder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrderRequest'
+      responses:
+        201:
+          description: Ответ при успешном создании заказа на сервере
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateOrderResponse'
+        400:
+          description: Неверный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Внутреняя ошибка сервиса
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  responses:
+    400:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    500:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+    Error:
+      type: object
+      description: 'Формат сообщения об ошибке отдаваемый в ответе'
+      properties:
+        errorCode:
+          type: string
+          maxLength: 32
+          description: 'Код ошибки'
+        timestamp:
+          type: string
+          format: date-time
+          description: 'Дата и время события'
+      additionalProperties: false
+
+    ErrorCode:
+      type: object
+      properties:
+        status:
+          type: string
+          description: HTTP статус ошибки
+          enum:
+            - BAD_REQUEST
+            - NOT_FOUND
+            - INTERNAL_SERVER_ERROR
+        errorText:
+          type: string
+          description: Описание ошибки
+          enum:
+            - "Отсутствуют обязательные параметры в запросе"
+            - "Отсутствует роль у пользователя"
+            - "Пользователь не найден"
+            - "Недоступна база данных"
+            - "Внутреняя ошибка сервиса"
+
+    OrderStatus:
+      type: string
+      description: Статус заказа
+      enum:
+        - ORDER_CREATED
+        - ORDER_COMPLETED
+        - ORDER_CANCELLED
+
+    PaymentStatus:
+      type: string
+      description: Статус оплаты
+      enum:
+        - PAYMENT_COMPLETED
+        - PAYMENT_FAILED
+
+    OrderResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Уникальный идентификатор заказа
+        userId:
+          type: integer
+          format: int32
+          description: Идентификатор пользователя
+        productId:
+          type: integer
+          format: int32
+          description: Идентификатор продукта
+        price:
+          type: integer
+          format: int32
+          description: Стоимость заказа
+        orderStatus:
+          $ref: '#/components/schemas/OrderStatus'
+        paymentStatus:
+          $ref: '#/components/schemas/PaymentStatus'
+
+    CreateOrderRequest:
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int32
+          description: Идентификатор пользователя, создающего заказ
+        productId:
+          type: integer
+          format: int32
+          description: Идентификатор продукта в заказе
+        amount:
+          type: integer
+          format: int32
+          description: Количество продукта
+        orderId:
+          type: integer
+          format: int64
+          description: Идентификатор заказа
+      required:
+        - userId
+        - productId
+        - amount
+        - orderId
+
+    CreateOrderResponse:
+      type: object
+      properties:
+        orderId:
+          type: integer
+          format: int64
+          description: Уникальный идентификатор созданного заказа
+        message:
+          type: string
+          description: Сообщение о результате создания заказа
+      example:
+        orderId: 12345
+        message: "Order successfully created"
